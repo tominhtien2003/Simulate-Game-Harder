@@ -27,13 +27,24 @@ public class ScenesTransition : MonoBehaviour
     }
     private IEnumerator IELoadLevel()
     {
+        Player.endLevel = 0;
         animator.SetTrigger("End");
+        GameObject[] playerList = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject _player in playerList)
+        {
+            _player.transform.GetComponent<Player>().enabled = false;
+        }
         yield return new WaitForSeconds(1f);
+        foreach (GameObject _player in playerList)
+        {
+            _player.transform.GetComponent<Player>().enabled = true;
+        }
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
         animator.SetTrigger("Start");
     }
     private IEnumerator IEResetLevel()
     {
+        Player.endLevel = 0;
         animator.SetTrigger("End");
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

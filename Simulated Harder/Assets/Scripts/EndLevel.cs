@@ -6,7 +6,11 @@ public class EndLevel : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            GameManager.instance.LoadLevel();
+            Player.endLevel++;
+            if (Player.endLevel == GameObject.FindGameObjectsWithTag("Player").Length)
+            {
+                GameManager.instance.LoadLevel();
+            }
         }
     }
 }
